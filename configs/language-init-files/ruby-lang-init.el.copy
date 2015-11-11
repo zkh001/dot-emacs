@@ -1,0 +1,234 @@
+(use-package ruby-mode
+  :config
+  ;; rcodetools
+  ;; $> gem install rcodetools
+  (use-package rcodetools
+    :if (executable-find "xmpfilter")
+    :config
+    (defun rcodetools-bindings()
+      (define-prefix-command 'ruby-tools-prefix)
+      (bind-key "M-p t" 'ruby-tools-prefix)
+      ;xmpfilter
+      (bind-key "M-p t x" 'xmp))
+    (add-hook 'ruby-mode-hook 'rcodetools-bindings))
+
+  (use-package yard-mode
+    :config
+    (add-hook 'ruby-mode-hook '(lambda ()
+                                 (setq yard-use-eldoc t)
+                                 (yard-mode t)
+                                 (eldoc-mode t))))
+
+  (add-hook 'ruby-mode-hook
+            '(lambda ()
+               (use-package ruby-block)
+               (use-package ruby-end)
+               (use-package rbenv
+                 :config
+                 (global-rbenv-mode)
+                 ;; if you installed rbenv in not HOME dir, you maybe change it
+                 ;; (setq rbenv-installation-dir "/usr/local/rbenv")
+                 ;;(setq rbenv-show-active-ruby-in-modeline nil)
+                 )
+               (ruby-block-mode t)
+               (setq ruby-block-highlight-toggle t)
+               (ruby-end-mode t)
+
+               (auto-complete-mode t)
+
+               (abbrev-mode t)
+               (electric-pair-mode t)
+               (add-to-list 'electric-pair-pairs '(?| . ?|))
+               (electric-indent-mode t)
+
+               ;; 改行を状況に応じて挙動を変えてくれるやつ
+               (smart-newline-mode 1)))
+  )
+
+
+;; you must install pry.
+;; $> gem install pry pry-doc
+(use-package robe
+  :if (executable-find "pry")
+  :config
+  (add-hook 'ruby-mode-hook 'robe-mode)
+  (autoload 'ac-robe-setup "ac-robe" "auto-complete robe" nil nil)
+  (add-hook 'robe-mode-hook 'ac-robe-setup)
+  )
+
+;; (defun run-robe ()
+;;   (interactive)
+;;   (inf-ruby)
+;;   (robe-start))
+
+;;;;; Rails ;;;;;
+(use-package rinari
+  :config
+
+  ;;
+  ;; binding
+  ;;
+  (bind-keys :map ruby-mode-map
+             ("M-p f c" . rinari-find-controller)
+             ("M-p f e" . rinari-find-environment)
+             ("M-p f f" . rinari-find-file-in-project)
+             ("M-p f h" . rinari-find-helper)
+             ("M-p f i" . rinari-find-migration)
+             ("M-p f j" . rinari-find-javascript)
+             ("M-p f P" . rinari-find-plugin)
+             ("M-p f m" . rinari-find-model)
+             ("M-p f n" . rinari-find-configuration)
+             ("M-p f o" . rinari-find-log)
+             ("M-p f p" . rinari-find-public)
+             ("M-p f s" . rinari-find-script)
+             ("M-p f t" . rinari-find-test)
+             ("M-p f v" . rinari-find-view)
+             ("M-p f w" . rinari-find-worker)
+             ("M-p f x" . rinari-find-fixture)
+             ("M-p f y" . rinari-find-stylesheet)
+
+             ("M-p s" . rinari-script)
+             ("M-p e" . rinari-insert-erb-skeleton)
+             ("M-p R" . rinari-rake)
+             ("M-p w" . rinari-web-server)
+             ("M-p x" . rinari-extract-partial)
+             ("M-p ;" . rinari-find-by-context)
+             ("M-p d" . rinari-cap)
+             ("M-p q" . rinari-sql)
+             ("M-p u" . rinari-test)
+             ("M-p c" . rinari-console)
+             ("M-p g" . rinari-rgrep)
+             ("M-p p" . rinari-goto-partial)
+             ("M-p '" . rinari-find-by-context))
+
+  ;; (defun for-rails-binding ()
+  ;;   (bind-key "M-p f c" 'rinari-find-controller      'ruby-mode-map)
+  ;;   (bind-key "M-p f e" 'rinari-find-environment     'ruby-mode-map)
+  ;;   (bind-key "M-p f f" 'rinari-find-file-in-project 'ruby-mode-map)
+  ;;   (bind-key "M-p f h" 'rinari-find-helper          'ruby-mode-map)
+  ;;   (bind-key "M-p f i" 'rinari-find-migration       'ruby-mode-map)
+  ;;   (bind-key "M-p f j" 'rinari-find-javascript      'ruby-mode-map)
+  ;;   (bind-key "M-p f P" 'rinari-find-plugin          'ruby-mode-map)
+  ;;   (bind-key "M-p f m" 'rinari-find-model           'ruby-mode-map)
+  ;;   (bind-key "M-p f n" 'rinari-find-configuration   'ruby-mode-map)
+  ;;   (bind-key "M-p f o" 'rinari-find-log             'ruby-mode-map)
+  ;;   (bind-key "M-p f p" 'rinari-find-public          'ruby-mode-map)
+  ;;   (bind-key "M-p f s" 'rinari-find-script          'ruby-mode-map)
+  ;;   (bind-key "M-p f t" 'rinari-find-test            'ruby-mode-map)
+  ;;   (bind-key "M-p f v" 'rinari-find-view            'ruby-mode-map)
+  ;;   (bind-key "M-p f w" 'rinari-find-worker          'ruby-mode-map)
+  ;;   (bind-key "M-p f x" 'rinari-find-fixture         'ruby-mode-map)
+  ;;   (bind-key "M-p f y" 'rinari-find-stylesheet      'ruby-mode-map)
+
+  ;;   (bind-key "M-p s" 'rinari-script                 'ruby-mode-map)
+  ;;   (bind-key "M-p e" 'rinari-insert-erb-skeleton    'ruby-mode-map)
+  ;;   (bind-key "M-p R" 'rinari-rake                   'ruby-mode-map)
+  ;;   (bind-key "M-p w" 'rinari-web-server             'ruby-mode-map)
+  ;;   (bind-key "M-p x" 'rinari-extract-partial        'ruby-mode-map)
+  ;;   (bind-key "M-p ;" 'rinari-find-by-context        'ruby-mode-map)
+  ;;   (bind-key "M-p d" 'rinari-cap                    'ruby-mode-map)
+  ;;   (bind-key "M-p q" 'rinari-sql                    'ruby-mode-map)
+  ;;   (bind-key "M-p u" 'rinari-test                   'ruby-mode-map)
+  ;;   (bind-key "M-p c" 'rinari-console                'ruby-mode-map)
+  ;;   (bind-key "M-p g" 'rinari-rgrep                  'ruby-mode-map)
+  ;;   (bind-key "M-p p" 'rinari-goto-partial           'ruby-mode-map)
+  ;;   (bind-key "M-p '" 'rinari-find-by-context        'ruby-mode-map)
+  ;;   )
+
+  ;; (add-hook 'ruby-mode-hook 'for-rails-binding)
+  )
+
+(use-package projectile-rails
+  :config
+  (defun for-rails-binding-with-projectile-rails ()
+    ;; 基本はrinariのバインドを上書きする
+    (define-prefix-command 'my-rails-find-prefix)
+    (bind-key "M-p f" 'my-rails-find-prefix 'ruby-mode-map)
+
+    (define-prefix-command 'my-rails-goto-prefix)
+    (bind-key "M-p g" 'my-rails-goto-prefix 'ruby-mode-map)
+
+    ;; find
+    (bind-key "M-p f c" 'projectile-rails-find-controller         'ruby-mode-map) ;controller
+    (bind-key "M-p f C" 'projectile-rails-find-current-controller 'ruby-mode-map)
+    (bind-key "M-p f m" 'projectile-rails-find-model              'ruby-mode-map) ;model
+    (bind-key "M-p f M" 'projectile-rails-find-current-model      'ruby-mode-map)
+    (bind-key "M-p f v" 'projectile-rails-find-view               'ruby-mode-map) ;view
+    (bind-key "M-p f V" 'projectile-rails-find-current-view       'ruby-mode-map)
+    (bind-key "M-p f h" 'projectile-rails-find-helper             'ruby-mode-map) ;helper
+    (bind-key "M-p f H" 'projectile-rails-find-current-helper     'ruby-mode-map)
+    (bind-key "M-p f l" 'projectile-rails-find-lib                'ruby-mode-map) ;lib
+    (bind-key "M-p f L" 'projectile-rails-find-layout             'ruby-mode-map) ;layout
+    (bind-key "M-p f s" 'projectile-rails-find-spec               'ruby-mode-map) ;spec
+    (bind-key "M-p f S" 'projectile-rails-find-current-spec       'ruby-mode-map)
+    (bind-key "M-p f t" 'projectile-rails-find-test               'ruby-mode-map) ;test
+    (bind-key "M-p f T" 'projectile-rails-find-current-test       'ruby-mode-map)
+    (bind-key "M-p f i" 'projectile-rails-find-migration          'ruby-mode-map) ;migration
+    (bind-key "M-p f I" 'projectile-rails-find-current-migration  'ruby-mode-map)
+    (bind-key "M-p f u" 'projectile-rails-find-fixture            'ruby-mode-map) ;fixture
+    (bind-key "M-p f U" 'projectile-rails-find-current-fixture    'ruby-mode-map)
+    (bind-key "M-p f a" 'projectile-rails-find-locale             'ruby-mode-map) ;locale
+    (bind-key "M-p f b" 'projectile-rails-find-job                'ruby-mode-map) ;job
+    (bind-key "M-p f e" 'projectile-rails-find-environment        'ruby-mode-map) ;env
+    (bind-key "M-p f i" 'projectile-rails-find-initializer        'ruby-mode-map) ;initializer
+    (bind-key "M-p f j" 'projectile-rails-find-javascript         'ruby-mode-map) ;js
+    (bind-key "M-p f o" 'projectile-rails-find-log                'ruby-mode-map) ;log
+    (bind-key "M-p f s" 'projectile-rails-find-stylesheet         'ruby-mode-map) ;ss
+    (bind-key "M-p f r" 'projectile-rails-find-rake-task          'ruby-mode-map) ;rake task
+    (bind-key "M-p f F" 'projectile-rails-find-feature            'ruby-mode-map) ;feature
+    (bind-key "M-p f @" 'projectile-rails-find-mailer             'ruby-mode-map) ;mailer
+    (bind-key "M-p f !" 'projectile-rails-find-validator          'ruby-mode-map) ;validator
+
+    ;; goto
+    (bind-key "M-p g f" 'projectile-rails-goto-file               'ruby-mode-map)
+    (bind-key "M-p g F" 'projectile-rails-goto-file-at-point      'ruby-mode-map)
+    (bind-key "M-p g g" 'projectile-rails-goto-gemfile            'ruby-mode-map)
+    (bind-key "M-p g h" 'projectile-rails-goto-spec-helper        'ruby-mode-map)
+    (bind-key "M-p g r" 'projectile-rails-goto-routes             'ruby-mode-map)
+    (bind-key "M-p g s" 'projectile-rails-goto-schema             'ruby-mode-map)
+    (bind-key "M-p g S" 'projectile-rails-goto-seeds              'ruby-mode-map)
+
+    ;; exec
+    (bind-key "M-p d" 'projectile-rails-destroy                   'ruby-mode-map)
+    (bind-key "M-p s" 'projectile-rails-server                    'ruby-mode-map)
+    (bind-key "M-p R" 'projectile-rails-rake                      'ruby-mode-map)
+    (bind-key "M-p G" 'projectile-rails-generate                  'ruby-mode-map)
+    (bind-key "M-p x" 'projectile-rails-extract-region            'ruby-mode-map))
+
+  (add-hook 'ruby-mode-hook 'for-rails-binding-with-projectile-rails))
+
+(use-package rspec-mode
+  :config
+  (custom-set-variables '(rspec-use-rake-flag nil))
+
+  (defun for-rails-binding-rspec ()
+    (define-prefix-command 'my-rspec-prefix)
+    (bind-key "M-p r" 'my-rspec-prefix)
+
+    (bind-keys :map rspec-verifiable-mode-map
+               ("M-p r v" . rspec-verify)
+               ("M-p r a" . rspec-verify-all)
+               ("M-p r t" . rspec-toggle-spec-and-target)
+               ("M-p r e" . rspec-toggle-spec-and-target-find-example)
+               ("M-p r 4 t" . rspec-find-spec-or-target-other-window)
+               ("M-p r 4 t" . rspec-find-spec-or-target-find-example-other-window)
+               ("M-p r r" . rspec-rerun)
+               ("M-p r m" . rspec-verify-matching)
+               ("M-p r c" . rspec-verify-continue)
+               ("M-p r s" . rspec-verify-method)
+               ("M-p r f" . rspec-run-last-failed))
+
+    (bind-keys :map rspec-mode-map
+               ("M-p r s" . rspec-verify-single)
+               ("M-p r d" . rspec-toggle-example-pendingness))
+
+    (bind-keys :map rspec-dired-mode-map
+               ("M-p r v" . rspec-dired-verify)
+               ("M-p r s" . rspec-dired-verify-single)
+               ("M-p r a" . rspec-verify-all)
+               ("M-p r r" . rspec-rerun))
+    )
+
+  (add-hook 'ruby-mode-hook 'for-rails-binding-rspec))
+
+(provide 'ruby-lang-init)
