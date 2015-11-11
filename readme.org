@@ -1,0 +1,38 @@
+* What's this? 
+  Emacs directory and its config files. This config files is for me :p
+
+* You MUST what to do
+  1. rename .emacs.d and set $HOME
+  2. You MUST execute the first-pkgs-installer.sh in .emacs.d/
+  3. start Emacs 
+     - download packages. But will stop because of Error probably, you check [1] in Tips
+     - you reboot Emacs 
+  4. restart emacs
+--
+
+* Tips
+** [1] when skk error (*NOTE!*)
+Probably, you should do the following in order to
+start emacs without errors of skk (bug??) :(
+
+- cd ~/.emacs.d/el-get/pkgs/ddskk 
+- mv skk-setup.el.in skk-setup.el
+- make
+
+** [2] when el-get bad state
+ you MAY remove file el-get/.loaddefs.el* and el-get/.status.el*,
+ if you notice that el-get, which is package-management tool, is
+ bad behavior!
+
+- rm ./el-get/.loaddefs.el*
+- rm ./el-get/.status.el
+
+** [3] when you want to kwow a lot of snippets
+ The following tips is for yasnippets(snippets plugin)' snippets
+ they support 
+
+- cd ~/.emacs.d/snippets
+- git clone --recursive https://github.com/capitaomorte/yasmate
+- gem install plist trollop
+- rake convert_bundles
+
