@@ -10,7 +10,7 @@
   2. start Emacs 
      - start downloading packages. If stop due to an error which failure of installing packages when start first, you have to reboot the emacs!
      - reboot Emacs (optional / just in case)
-  3. restart emacs
+  3. Enjoy!
 
 * Memo
 ** [1] When the El-get is Bad State
