@@ -22,7 +22,7 @@
     (dolist (pkg require-packages)
       (unless (package-installed-p pkg)
         (package-install pkg)
-        (add-to-load-path package-user-dir)))))
+        (add-to-load-paths package-user-dir)))))
 
 (require 'use-package)
 

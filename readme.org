@@ -1,5 +1,5 @@
 * What is This?
-  Emacs directory and its config files. This config files is for me :p
+  This repository is emacs config files. This config files is for me :p
 
 * Requirement
   - Git
@@ -26,6 +26,7 @@
  they support 
 (REQUIREMENT: ruby, gem, rake)
 
+- mkdir 
 - cd ~/.emacs.d/snippets
 - git clone --recursive https://github.com/capitaomorte/yasmate
 - gem install plist trollop
