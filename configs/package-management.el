@@ -19,9 +19,14 @@
                            unless (package-installed-p x)
                            collect x)))
     (package-refresh-contents)
-    (dolist (pkg require-packages)
-      (unless (package-installed-p pkg)
-        (package-install pkg)
+
+    (let ((first-start nil))
+      (dolist (pkg require-packages)
+        (unless (package-installed-p pkg)
+          (package-install pkg)
+          ; 初回起動
+          (setq first-start t)))
+      (when first-start
         (add-to-load-paths package-user-dir)))))
 
 (require 'use-package)
