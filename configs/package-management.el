@@ -1,8 +1,6 @@
 
 (when (require 'package nil t)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
   (package-initialize))
 
 ;; if not install the el-get, install it by using git
@@ -28,7 +26,7 @@
 (require 'use-package)
 
 ;; git clone https://github.com/dimitri/el-get.git
-(use-package el-get)
+(require 'el-get)
 
 ;;;;;;;;;;;;;;;;;
 ; makeinfo
@@ -42,7 +40,6 @@
 (el-get-bundle elpa:ace-jump-buffer)
 (el-get-bundle elpa:bind-key)
 (el-get-bundle elpa:codic)
-(el-get-bundle elpa:color-moccur)
 (el-get-bundle elpa:coffee-mode)
 (el-get-bundle elpa:comment-dwim-2)
 (el-get-bundle elpa:css-eldoc)
@@ -68,7 +65,6 @@
 (el-get-bundle elpa:js2-mode)
 (el-get-bundle elpa:flycheck)
 (el-get-bundle elpa:flycheck-pos-tip)
-(el-get-bundle elpa:moccur-edit)
 (el-get-bundle elpa:multi-term)
 (el-get-bundle elpa:multiple-cursors)
 (el-get-bundle elpa:neotree)
@@ -101,17 +97,17 @@
 
 ;; they are packages from Github
 (el-get-bundle mooz/auto-complete-c-headers)
-(el-get-bundle Golevka/emacs-clang-complete-async)
-(el-get-bundle skk-dev/ddskk)
+;; (el-get-bundle skk-dev/ddskk :build '("make" "install"))
+(el-get-bundle ddskk)
+
 ;; end of Github 
 
-;; org-mode
-(el-get-bundle org-mode)
+;; ;; org-mode
+;; (el-get-bundle org-mode)
 
 ;; modern? emacs lib
 (el-get-bundle elpa:dash)
 (el-get-bundle elpa:f)
 (el-get-bundle elpa:s)
-
 
 (provide 'package-management)

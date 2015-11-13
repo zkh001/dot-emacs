@@ -1,6 +1,6 @@
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 
-(use-package yatex-mode
+(use-package yatex
   :init
   (add-to-list 'auto-mode-alist '("\\.tex$" . yatex-mode))
 )

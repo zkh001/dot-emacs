@@ -1,38 +1,32 @@
-* What's this? 
+* What is This?
   Emacs directory and its config files. This config files is for me :p
 
-* You MUST what to do
-  1. rename .emacs.d and set $HOME
-  2. You MUST execute the first-pkgs-installer.sh in .emacs.d/
-  3. start Emacs 
-     - download packages. But will stop because of Error probably, you check [1] in Tips
-     - you reboot Emacs 
-  4. restart emacs
---
+* Requirement
+  - Git
 
-* Tips
-** [1] when skk error (*NOTE!*)
-Probably, you should do the following in order to
-start emacs without errors of skk (bug??) :(
+* How to Install
+  1. clone this repository
+     - git clone https://github.com/zkh001/dot-emacs.git ~/.emacs.d
+  2. start Emacs 
+     - start downloading packages. If stop due to an error which failure of installing packages when start first, you have to reboot the emacs!
+     - reboot Emacs (optional / just in case)
+  3. restart emacs
 
-- cd ~/.emacs.d/el-get/pkgs/ddskk 
-- mv skk-setup.el.in skk-setup.el
-- make
-
-** [2] when el-get bad state
+* Memo
+** [1] When the El-get is Bad State
  you MAY remove file el-get/.loaddefs.el* and el-get/.status.el*,
  if you notice that el-get, which is package-management tool, is
  bad behavior!
 
-- rm ./el-get/.loaddefs.el*
-- rm ./el-get/.status.el
+- rm ~/.emacs.d/el-get/.loaddefs.el*
+- rm ~/.emacs.d/el-get/.status.el
 
-** [3] when you want to kwow a lot of snippets
+** [2] When You Want to Kwow a Lot of Snippets
  The following tips is for yasnippets(snippets plugin)' snippets
  they support 
+(REQUIREMENT: ruby, gem, rake)
 
 - cd ~/.emacs.d/snippets
 - git clone --recursive https://github.com/capitaomorte/yasmate
 - gem install plist trollop
 - rake convert_bundles
-
