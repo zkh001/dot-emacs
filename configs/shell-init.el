@@ -3,9 +3,9 @@
 ;;;;;;;;;;;;;;;
 
 ;; ターミナルのパスを~/.emacs.d/shell/shellenv.elに出力する
-(when (my-create-term-environment-path "~/.emacs.d/shell" "shellenv.el")
+(when (my-create-term-environment-path "~/.emacs.d" "shellenv.el")
   ;; 生成したパスのファイルを読み込んでexec-pathに追加
-  (load-file (expand-file-name "~/.emacs.d/shell/shellenv.el"))
+  (load-file (expand-file-name "~/.emacs.d/shellenv.el"))
   (dolist (path (reverse (split-string (getenv "PATH") ":")))
     (add-to-list 'exec-path path)))
 
