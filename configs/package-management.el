@@ -21,7 +21,8 @@
     (package-refresh-contents)
     (dolist (pkg require-packages)
       (unless (package-installed-p pkg)
-        (package-install pkg)))))
+        (package-install pkg)
+        (add-to-load-path package-user-dir)))))
 
 (require 'use-package)
 

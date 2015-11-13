@@ -11,19 +11,10 @@
         (add-to-load-path-recompile lpath)
         ;; also add sub-directories
         (when (fboundp 'normal-top-level-add-subdirs-to-load-path)
+          ;; サブディレクトリを再帰的にロードパスに追加する
             (setq default-directory lpath)
             (normal-top-level-add-subdirs-to-load-path)))))
   (setq default-directory "~/"))
-
-;; ;; 再帰的にロードパスに追加する関数
-;; (defun add-to-load-paths (&rest paths)
-;;   (dolist (path paths)
-;;     (let ((lpath (expand-file-name (locate-user-emacs-file path))))
-;;       (when (file-directory-p lpath)
-;;         (add-to-load-path-recompile lpath) ; with byte-compile
-;;         ;; also add sub-directories
-;;         (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-;;             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;;ロードパスに追加する
 ;; (add-to-load-paths "configs" "el-get" "dic" "backup" "info" "themes")
