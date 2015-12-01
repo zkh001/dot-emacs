@@ -1,5 +1,4 @@
 
-
 ;; バッファ全体をインデント
 (defun my-indent-whole-buffer ()
   "This function indent whole buffer"
@@ -61,7 +60,5 @@
 (defun my-preview-on-eww ()
   (interactive)
   nil)
-
-
 
 (provide 'my-function)

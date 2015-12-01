@@ -14,24 +14,34 @@
   (setq guide-key/idle-delay 1.0)
 
   ;; 文字の大きさを変更する
-  (setq guide-key/text-scale-amount -2)
+  (setq guide-key/text-scale-amount -4)
+
+  (setq guide-key/popup-window-position 'right)
+  ;; (setq guide-key/popup-window-position 'bottom)
 
   (guide-key-mode 1)
 
   (when window-system                   ; not on terminal
-    ;; tipで表示させる
+    ;; poptipで表示させる
     (use-package guide-key-tip
       :config
       (setq guide-key-tip/enabled t)
 
       (set-face-foreground 'guide-key-tip/pos-tip-face "black")
       (set-face-background 'guide-key-tip/pos-tip-face "light cyan")
-      (set-face-bold 'guide-key-tip/pos-tip-face nil)))
-
-
-  ;; このサイトのやつ動かないぞ
-  ;; ;; from http://qiita.com/akisute3@github/items/88124a1399fc7fe9d419
+      (set-face-bold 'guide-key-tip/pos-tip-face nil))
+    ;; MEMO(右下からの表示を右上に変更するコード)
+    ;; guide-key-tip/pos-tip-showの定義で
+    ;;
+    ;;   string 'pos-tip-temp 1 wnd 300 tipwidth tipheight nil dx dy))))))))
+    ;;                              ↓
+    ;;   string 'pos-tip-temp 1 wnd 300 tipwidth tipheight nil dx 0))))))))
+    ;; と変更する
+    )
 
   )
 
 (provide 'guide-key-init)
+
+(pos-tip-x-display-height)
+(pos-tip-x-display-width)

@@ -1,4 +1,4 @@
-(use-package ruby-mode
+(use-package ruby-modepo
   :config
   ;; rcodetools
   ;; $> gem install rcodetools
@@ -6,43 +6,43 @@
     :if (executable-find "xmpfilter")
     :config
     (bind-keys :map ruby-mode-map
-               :prefix-map ruby-tools-prefix
-               :prefix "M-p t"
-               ( "x" . xmp) ;xmpfilter
+               ;; :prefix-map ruby-tools-prefix
+               :prefix "M-p C-x"
+               ("x" . xmp) ;xmpfilter
                )
     )
 
   (use-package yard-mode
     :config
-    (add-hook 'ruby-mode-hook '(lambda ()
-                                 (setq yard-use-eldoc t)
-                                 (yard-mode t)
-                                 (eldoc-mode t))))
+    (add-hook 'ruby-mode-hook (lambda ()
+                                (setq yard-use-eldoc t)
+                                (yard-mode t)
+                                (eldoc-mode t))))
 
   (add-hook 'ruby-mode-hook
-            '(lambda ()
-               (use-package ruby-block)
-               (use-package ruby-end)
-               (use-package rbenv
-                 :config
-                 (global-rbenv-mode)
-                 ;; if you installed rbenv in not HOME dir, you maybe change it
-                 ;; (setq rbenv-installation-dir "/usr/local/rbenv")
-                 ;;(setq rbenv-show-active-ruby-in-modeline nil)
-                 )
-               (ruby-block-mode t)
-               (setq ruby-block-highlight-toggle t)
-               (ruby-end-mode t)
+            (lambda ()
+              (use-package ruby-block)
+              (use-package ruby-end)
+              (use-package rbenv
+                :config
+                (global-rbenv-mode)
+                ;; if you installed rbenv in not HOME dir, you maybe change it
+                ;; (setq rbenv-installation-dir "/usr/local/rbenv")
+                ;;(setq rbenv-show-active-ruby-in-modeline nil)
+                )
+              (ruby-block-mode t)
+              (setq ruby-block-highlight-toggle t)
+              (ruby-end-mode t)
 
-               (auto-complete-mode t)
+              (auto-complete-mode t)
 
-               (abbrev-mode t)
-               (electric-pair-mode t)
-               (add-to-list 'electric-pair-pairs '(?| . ?|))
-               (electric-indent-mode t)
+              (abbrev-mode t)
+              (electric-pair-mode t)
+              (add-to-list 'electric-pair-pairs '(?| . ?|))
+              (electric-indent-mode t)
 
-               ;; 改行を状況に応じて挙動を変えてくれるやつ
-               (smart-newline-mode 1)))
+              ;; 状況に応じて改行の挙動を変えてくれるやつ
+              (smart-newline-mode 1)))
   )
 
 
@@ -64,7 +64,6 @@
 ;;;;; Rails ;;;;;
 (use-package rinari
   :config
-
   ;;
   ;; binding
   ;;
@@ -89,7 +88,7 @@
 
              ("M-p s" . rinari-script)
              ("M-p e" . rinari-insert-erb-skeleton)
-             ("M-p R" . rinari-rake)
+             ("M-p r" . rinari-rake)
              ("M-p w" . rinari-web-server)
              ("M-p x" . rinari-extract-partial)
              ("M-p ;" . rinari-find-by-context)
@@ -104,7 +103,7 @@
 
 (use-package projectile-rails
   :config
-  (bind-keys :map ruby-mode-map
+  (bind-keys :map projectile-rails-mode-map
              :prefix-map my-rails-find-prefix
              :prefix "M-p f"
              ("c" . projectile-rails-find-controller        ) ;controller
@@ -137,7 +136,7 @@
              ("@" . projectile-rails-find-mailer           ) ;mailer
              ("!" . projectile-rails-find-validator        ) ;validator
              )
-  (bind-keys :map ruby-mode-map
+  (bind-keys :map projectile-rails-mode-map
              :prefix-map my-rails-goto-prefix
              :prefix "M-p g"
              ("f" . projectile-rails-goto-file         )
@@ -149,14 +148,15 @@
              ("S" . projectile-rails-goto-seeds        )
              )
 
-  ;; find
-  (bind-keys :map ruby-mode-map
+  (bind-keys :map projectile-rails-mode-map
              ("M-p d" . projectile-rails-destroy       )
              ("M-p s" . projectile-rails-server        )
-             ("M-p R" . projectile-rails-rake          )
+             ("M-p r" . projectile-rails-rake          )
              ("M-p G" . projectile-rails-generate      )
              ("M-p x" . projectile-rails-extract-region)
              )
+
+  (add-hook 'ruby-mode-hook (lambda () (projectile-rails-on)))
   )
 
 (use-package rspec-mode
@@ -180,13 +180,13 @@
              )
 
   (bind-keys :map rspec-mode-map
-             :prefix-map my-rspec-prefix
+             :prefix-map my-in-rspec-prefix
              :prefix "M-p r"
              ("r s" . rspec-verify-single)
              ("r d" . rspec-toggle-example-pendingness))
 
   (bind-keys :map rspec-dired-mode-map
-             :prefix-map my-rspec-prefix
+             :prefix-map my-rspec-dired-prefix
              :prefix "M-p r"
              ("v" . rspec-dired-verify)
              ("s" . rspec-dired-verify-single)

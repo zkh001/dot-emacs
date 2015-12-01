@@ -34,19 +34,15 @@
 (use-package zlc
   :config
   (zlc-mode t)
-  (let ((map minibuffer-local-map))
-    (bind-key "<down>"    'zlc-select-next-vertical map)
-    (bind-key "<up>"      'zlc-select-previous-vertical map)
-    (bind-key "<right>"   'zlc-select-next map)
-    (bind-key "<left>"    'zlc-select-previous map)
-
-    (bind-key "M-n"       'zlc-select-next-vertical map)
-    (bind-key "M-p"       'zlc-select-previous-vertical map)
-    (bind-key "C-M-<tab>" 'zlc-select-previous map)
-    (bind-key "C-M-TAB"   'zlc-select-previous map)
-    (bind-key "C-c r"     'zlc-reset map)
-    )
+  (bind-keys :map minibuffer-local-map
+    ("<down>"    . zlc-select-next-vertical)
+    ("<up>"      . zlc-select-previous-vertical)
+    ("<right>"   . zlc-select-next)
+    ("<left>"    . zlc-select-previous)
+    ("M-n"       . zlc-select-next-vertical)
+    ("M-p"       . zlc-select-previous-vertical)
+    ("C-M-<tab>" . zlc-select-previous)
+    ("C-c r"     . zlc-reset))
   )
-
 
 (provide 'complete-init)

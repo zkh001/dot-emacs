@@ -1,4 +1,3 @@
-
 (use-package neotree
   :config
 
@@ -8,6 +7,11 @@
   (setq neo-keymap-style 'concise)
 
   (setq neo-persist-show nil)
+
+  ;; helmで無効にする
+  (add-to-list 'helm-completing-read-handlers-alist '(neotree-rename-node . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(neotree-create-node . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(neotree-copy-node   . nil))
 
 
   (when (popwin-mode)
@@ -20,6 +24,7 @@
   ;;
   ;; binding
   ;;
+  (unbind-key "C-n" neotree-mode-map)
   (bind-key "<f7>" 'neotree-toggle)
   (bind-keys :map neotree-mode-map
              ("j" . neotree-next-line)
@@ -31,16 +36,6 @@
              ("R" . neotree-rename-node)
              ("Q" . neotree-change-root)
              ("M" . neotree-stretch-toggle))
-  
-  (bind-key "j" 'neotree-next-line     neotree-mode-map)
-  (bind-key "k" 'neotree-previous-line neotree-mode-map)
-  (bind-key "r" 'neotree-refresh       neotree-mode-map)
-  (bind-key "C" 'neotree-create-node neotree-mode-map)
-  (bind-key "D" 'neotree-delete-node neotree-mode-map)
-  (bind-key "R" 'neotree-rename-node neotree-mode-map)
-  (bind-key "Q" 'neotree-change-root neotree-mode-map)
-  (bind-key "M" 'neotree-stretch-toggle neotree-mode-map)
-
   )
 
 (provide 'directory-init)

@@ -35,20 +35,20 @@
     (setq web-mode-auto-close-style 2)  ; on > and </
 
     ;; bindings
-    (define-prefix-command 'attribute-op-prefix)
-    (bind-key "M-p a" 'attribute-op-prefix)
+    ;; (define-prefix-command 'attribute-prefix)
+    ;; (bind-key "M-p a" 'attribute-prefix)
 
-    (define-prefix-command 'block-op-prefix)
-    (bind-key "M-p b" 'block-op-prefix)
+    ;; (define-prefix-command 'block-prefix)
+    ;; (bind-key "M-p b" 'block-prefix)
 
-    (define-prefix-command 'dom-op-prefix)
-    (bind-key "M-p d" 'dom-op-prefix)
+    ;; (define-prefix-command 'dom-prefix)
+    ;; (bind-key "M-p d" 'dom-prefix)
 
-    (define-prefix-command 'element-op-prefix)
-    (bind-key "M-p e" 'element-op-prefix)
+    ;; (define-prefix-command 'element-prefix)
+    ;; (bind-key "M-p e" 'element-prefix)
 
-    (define-prefix-command 'tag-op-prefix)
-    (bind-key "M-p t" 'tag-op-prefix)
+    ;; (define-prefix-command 'tag-prefix)
+    ;; (bind-key "M-p t" 'tag-prefix)
 
     (bind-keys :map web-mode-map
                :prefix-map web-mode-attribute-prefix
@@ -118,16 +118,16 @@
                ("s" . web-mode-tag-select))
 
     (bind-keys :map web-mode-map
-               ("M-;"     . 'web-mode-comment-or-uncomment)
-               ("M-p F"   . 'web-mode-fold-or-unfold)
-               ("M-p h"   . 'web-mode-buffer-highlight)
-               ("M-p i"   . 'web-mode-buffer-indent)
-               ("M-p j"   . 'web-mode-jshint)
-               ("M-p m"   . 'web-mode-mark-and-expand)
-               ("M-p n"   . 'web-mode-navigate)
-               ("M-p r"   . 'web-mode-reload)
-               ("M-p I"   . 'web-mode-snippet-insert)
-               ("M-p W"   . 'web-mode-whitespaces-show))
+               ("M-;"     . web-mode-comment-or-uncomment)
+               ("M-p F"   . web-mode-fold-or-unfold)
+               ("M-p h"   . web-mode-buffer-highlight)
+               ("M-p i"   . web-mode-buffer-indent)
+               ("M-p j"   . web-mode-jshint)
+               ("M-p m"   . web-mode-mark-and-expand)
+               ("M-p n"   . web-mode-navigate)
+               ("M-p r"   . web-mode-reload)
+               ("M-p I"   . web-mode-snippet-insert)
+               ("M-p W"   . web-mode-whitespaces-show))
 
     ;; erbファイルを編集するときweb-mode + projectile-rails になるようにする
     ;; ただしキーバインドががが
