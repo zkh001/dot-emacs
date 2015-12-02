@@ -151,7 +151,7 @@
   (bind-keys :map projectile-rails-mode-map
              ("M-p d" . projectile-rails-destroy       )
              ("M-p s" . projectile-rails-server        )
-             ("M-p r" . projectile-rails-rake          )
+             ("M-p v" . projectile-rails-rake          )
              ("M-p G" . projectile-rails-generate      )
              ("M-p x" . projectile-rails-extract-region)
              )
